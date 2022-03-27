@@ -1,8 +1,9 @@
 const clock = document.querySelector("h2#clock");
 
-function sayHello(){
-    console.log("hello");
+function getClock(){
+    const date = new Date();
+    clock.innerText = (`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 }
 
-setInterval(sayHello, 5000);
-//5초마다 sayHello 호출
+getClock(); // 얘 없이 interval만 하면 refresh 했을 때 1초 기다리고 뜸
+setInterval(getClock, 1000);
