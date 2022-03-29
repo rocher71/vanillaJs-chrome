@@ -4,7 +4,7 @@ const toDoList = document.querySelector("#todo-list");
 
 const TODOS_KEY = "todos";
 
-const toDos = [];
+let toDos = [];
 
 function saveToDos(){
     localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
@@ -14,6 +14,9 @@ function saveToDos(){
 function deleteToDo(event){
     const li = event.target.parentElement;
     //console.log(li.id); //li객체마다 id를 추가해줬으므로 삭제 버튼 클릭 할 때 클릭 된 element의 id를 받을 수 있음
+    //filter 함수는 원 배열을 바꾸지 않음, 새로운 배열을 만들어서 return 함.
+    toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+    saveToDos();
     li.remove();
 }
 
@@ -50,6 +53,7 @@ const savedToDos = localStorage.getItem(TODOS_KEY);
 
 if(savedToDos){ //localstorage에 저장된 투두가 있을 경우에
     const parsedToDos = JSON.parse(savedToDos);
+    toDos = parsedToDos; //지우고 refresh했을 때 localStorage에 배열이 있어도 toDos는 비어있어서 제대로 작동안함, 따라서 할당 해줌
     //eventlistener가 함수에 event를 인자로 보내주는 것처럼, forEach는 element를 인자로 보내줌
     parsedToDos.forEach(paintToDo); // paintToDo(a), paintToDo(b) ... 호출 
     
