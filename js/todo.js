@@ -44,6 +44,6 @@ const savedToDos = localStorage.getItem(TODOS_KEY);
 if(savedToDos){ //localstorage에 저장된 투두가 있을 경우에
     const parsedToDos = JSON.parse(savedToDos);
     //eventlistener가 함수에 event를 인자로 보내주는 것처럼, forEach는 element를 인자로 보내줌
-    parsedToDos.forEach((item) => console.log("this is the turn of : ", item));
+    parsedToDos.forEach(paintToDo); // paintToDo(a), paintToDo(b) ... 호출 
     
 }
