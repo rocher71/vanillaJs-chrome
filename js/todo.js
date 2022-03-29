@@ -13,13 +13,15 @@ function saveToDos(){
 
 function deleteToDo(event){
     const li = event.target.parentElement;
+    //console.log(li.id); //li객체마다 id를 추가해줬으므로 삭제 버튼 클릭 할 때 클릭 된 element의 id를 받을 수 있음
     li.remove();
 }
 
 function paintToDo(newTodo){
     const li = document.createElement("li");
+    li.id = newTodo.id; // li html element에 id를 부여해줌
     const span = document.createElement("span");
-    span.innerText = newTodo;
+    span.innerText = newTodo.text;  
     const button = document.createElement("button");
     button.innerText = "❌";
     button.addEventListener("click", deleteToDo);
@@ -32,8 +34,13 @@ function handleToDoSubmit(event){
     event.preventDefault();
     const newTodo = toDoInput.value;
     toDoInput.value = "";
-    toDos.push(newTodo);
-    paintToDo(newTodo);
+    //삭제 한 element를 로컬 스토리지에서도 삭제해야하므로 이 때 찾기 쉽게 id를 갖는 객체로 변경해줌.
+    const newTodoObj = {
+        text : newTodo,
+        id : Date.now(),
+    }
+    toDos.push(newTodoObj);
+    paintToDo(newTodoObj);
     saveToDos();
 }
 
